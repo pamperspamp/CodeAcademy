@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакти | CodeAcademy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="header_container">
+                <div class="header_title_box">
+                    <h1 class="header_title">CodeAcademy</h1>
+                    <p class="header_note">© Навчальний проєкт</p>
+                </div>
+                <nav>
+                    <a href="index.html">Головна</a>
+                    <a href="about.html">Про нас</a>
+                    <a href="products.html">Курси</a>
+                    <a href="contact.html">Контакти</a>
+                </nav>
+            </div>
+        </header>
+    </div>
+
+    <main class="main_content">
+        <section class="form_section">
+            <p class="section_label">Зворотний зв’язок</p>
+            <h2>Напишіть нам</h2>
+            <p>Заповніть форму, якщо маєте запитання щодо навчання.</p>
+
+            <form class="contact_form" action="#" method="post" novalidate>
+                <label for="name">Ім’я</label>
+                <input id="name" name="name" type="text" minlength="2" maxlength="40"
+                    placeholder="Максим" required>
+
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="name@gmail.com"
+                    autocomplete="email" required
+                    pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
+                    title="Тільки англійська пошта з доменом, наприклад name@gmail.com">
+
+                <label for="phone">Телефон</label>
+                <input id="phone" name="phone" type="tel" inputmode="numeric"
+                    autocomplete="tel" required value="+380" maxlength="13"
+                    placeholder="+380XXXXXXXXX" pattern="^\+380\d{9}$"
+                    title="Формат: +380671234567">
+
+                <label for="subject">Тема повідомлення</label>
+                <input id="subject" name="subject" type="text" maxlength="60"
+                    placeholder="Наприклад: Питання щодо курсу HTML" required>
+
+                <label for="message">Текст повідомлення</label>
+                <textarea id="message" name="message" rows="6" maxlength="500"
+                    placeholder="Опишіть ваше запитання..." required></textarea>
+
+                <div class="form_buttons">
+                    <button class="action_button" type="submit">Надіслати</button>
+                    <button class="reset_button" type="reset">Скинути</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site_footer">
+        <div class="footer_content">
+            <div class="footer_about">
+                <h2><span class="footer_icon">⌘</span> CodeAcademy</h2>
+                <p>Навчальна платформа для перших кроків у програмуванні.</p>
+            </div>
+            <div class="footer_info">
+                <h3>Про проєкт</h3>
+                <p>🎓 Виконав: Максим Адамчук</p>
+                <p>💻 Навчальний вебпроєкт</p>
+            </div>
+            <div class="footer_info">
+                <h3>Напрямки</h3>
+                <p>▸ HTML &amp; CSS</p>
+                <p>▸ JavaScript, Python і Java</p>
+            </div>
+        </div>
+        <div class="footer_bottom">
+            <p>Створено Максим Адамчук 2026</p>
+            <p>Сайт є виключно навчальним проєктом</p>
+        </div>
+    </footer>
+
+    <script>
+        const form = document.querySelector(".contact_form");
+        const phone = document.getElementById("phone");
+        const email = document.getElementById("email");
+
+        phone.value = "+380";
+
+        phone.addEventListener("input", () => {
+            let digits = phone.value.replace(/\D/g, "");
+
+            if (!digits.startsWith("380")) {
+                digits = "380";
+            }
+
+            phone.value = "+" + digits.substring(0, 12);
+        });
+
+        phone.addEventListener("keydown", (event) => {
+            if (phone.selectionStart <= 4 &&
+                (event.key === "Backspace" || event.key === "Delete")) {
+                event.preventDefault();
+            }
+        });
+
+        email.addEventListener("input", () => {
+            email.value = email.value.replace(/[^A-Za-z0-9@._%+-]/g, "");
+        });
+
+        form.addEventListener("submit", (event) => {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                form.reportValidity();
+            }
+        });
+
+        form.addEventListener("reset", () => {
+            setTimeout(() => {
+                phone.value = "+380";
+            }, 0);
+        });
+    </script>
+</body>
+
+</html>
